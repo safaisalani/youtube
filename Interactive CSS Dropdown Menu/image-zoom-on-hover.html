@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Zoom on Hover</title>
+    <style>
+        .image-zoom {
+            position: relative;
+            overflow: hidden;
+            width: 300px;
+            height: 300px;
+        }
+
+        .image-zoom img {
+            transition: transform 0.5s;
+        }
+
+        .image-zoom:hover img {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="image-zoom">
+        <img src="./assets/image/new-cat-1.jpg" alt="Image">
+    </div>
+</body>
+</html>

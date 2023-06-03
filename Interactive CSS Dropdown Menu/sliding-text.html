@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Sliding Text</title>
+    <style>
+        .sliding-text {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: slide 5s linear infinite;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sliding-text">This is a sliding text animation</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Color Generator</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+        }
+
+        .color-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="color-container" onclick="changeColor()">Click to Generate Color</div>
+    <script>
+        function changeColor() {
+            const randomColor = getRandomColor();
+            document.body.style.backgroundColor = randomColor;
+            document.querySelector('.color-container').textContent = randomColor;
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</body>
+</html>

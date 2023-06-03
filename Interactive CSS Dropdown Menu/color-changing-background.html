@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Color Changing Background</title>
+    <style>
+        body {
+            background-color: red;
+            transition: background-color 1s;
+        }
+
+        body.change {
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="document.body.classList.toggle('change')">Change Background</button>
+</body>
+</html>

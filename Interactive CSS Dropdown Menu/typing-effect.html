@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Typewriter Text Effect</title>
+    <style>
+        #text {
+            font-size: 24px;
+            color: green;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typewriter 3s steps(30) infinite;
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div id="text">This is a typewriter effect.</div>
+</body>
+</html>

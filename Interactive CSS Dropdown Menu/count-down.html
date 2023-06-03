@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Countdown Timer</title>
+    <style>
+        #timer {
+            font-size: 48px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="timer">10</div>
+    <script>
+        let count = 100;
+        const timer = setInterval(() => {
+            document.getElementById('timer').textContent = count--;
+            if (count < 0) {
+                clearInterval(timer);
+            }
+        }, 100);
+    </script>
+</body>
+</html>

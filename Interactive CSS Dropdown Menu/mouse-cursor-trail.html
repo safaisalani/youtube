@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mouse Cursor Trail</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            cursor: none;
+        }
+
+        .trail {
+            width: 20px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 50%;
+            position: absolute;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="trail"></div>
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.querySelector('.trail');
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+        });
+    </script>
+</body>
+</html>

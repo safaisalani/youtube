@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Particle Effect</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+        
+        #particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: moveParticle linear infinite;
+        }
+
+        @keyframes moveParticle {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles"></div>
+
+    <script>
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            return particle;
+        }
+
+        function getRandomValue(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function animateParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const { width, height } = particlesContainer.getBoundingClientRect();
+            
+            setInterval(() => {
+                const particle = createParticle();
+                
+                const size = getRandomValue(10, 40);
+                const x = getRandomValue(0, width);
+                const y = getRandomValue(-100, -10);
+                const duration = getRandomValue(1, 3);
+                const color = getRandomColor();
+
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.backgroundColor = color;
+
+                particlesContainer.appendChild(particle);
+
+                particle.addEventListener('animationend', () => {
+                    particle.remove();
+                });
+            }, 100);
+        }
+
+        animateParticles();
+    </script>
+</body>
+</html>

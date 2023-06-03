@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Logo with SVG</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgba(0, 174, 255, 0.356);
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            height: 100vh;
+            border: 20px solid;
+            border-image: linear-gradient(to right, red, blue, green) 1;
+            animation: rotateBorder 10s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #logo {
+            width: 100vw;
+            height: 40vh;
+            position: fixed;
+        }
+
+        .star {
+            animation: rotate 5s linear infinite;
+            transform-origin: center;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <svg id="logo" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <script>
+        class Star {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.color = getRandomColor();
+            }
+
+            create() {
+                const star = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                star.setAttribute('class', 'star');
+                star.setAttribute('points', '100,10 40,198 190,78 10,78 160,198');
+                star.style.position = 'absolute';
+                star.style.fill = this.color;
+                document.getElementById('logo').appendChild(star);
+            }
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function handleTouchStart(e) {
+            const touch = e.touches[0];
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+            const star = new Star(randomX, randomY);
+            star.create();
+        }
+
+        function handleClick(e) {
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+            const star = new Star(randomX, randomY);
+            star.create();
+        }
+
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('click', handleClick);
+    </script>
+</body>
+</html>

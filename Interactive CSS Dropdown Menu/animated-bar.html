@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Progress Bar</title>
+    <style>
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+
+        .progress-bar-inner {
+            width: 0;
+            height: 100%;
+            background-color: blue;
+            position: absolute;
+            animation: progress 5s linear infinite;
+        }
+
+        @keyframes progress {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-bar-inner"></div>
+    </div>
+</body>
+</html>
