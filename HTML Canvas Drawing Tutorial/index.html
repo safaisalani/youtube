@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Canvas Drawing Tutorial</title>
+    <style>
+        /* CSS code for canvas container */
+        html,body{
+            margin: 0;
+        }
+        #myCanvas {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container">
+        <canvas id="myCanvas" width="400" height="500"></canvas>
+    </div>
+    <div>
+        <input type="color" id="colorPicker" value="#000000">
+        <input type="range" id="brushSize" min="1" max="100" value="2">
+
+    </div>
+    <script>
+        // JavaScript code for canvas drawing
+        const canvas = document.getElementById('myCanvas');
+        const context = canvas.getContext('2d');
+        const colorPicker = document.getElementById('colorPicker');
+        const brushSize = document.getElementById('brushSize');
+      
+
+        // Set initial drawing properties
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        // Mouse event handling
+        function handleMouseDown(e) {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+
+        function handleMouseMove(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+
+            context.strokeStyle = colorPicker.value; // Set stroke color based on the color picker value
+            context.lineWidth = brushSize.value; // Set brush size based on the brush size input
+
+          
+                context.lineJoin = 'round';
+                context.lineCap = 'round';
+        
+
+            context.beginPath();
+            context.moveTo(lastX, lastY);
+            context.lineTo(e.offsetX, e.offsetY);
+            context.stroke();
+
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+
+        function handleMouseUp() {
+            isDrawing = false;
+        }
+
+        // Touch event handling
+        function handleTouchStart(e) {
+            isDrawing = true;
+            const touch = e.touches[0];
+            [lastX, lastY] = [touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offsetTop];
+        }
+
+        function handleTouchMove(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+
+            context.strokeStyle = colorPicker.value; // Set stroke color based on the color picker value
+            context.lineWidth = brushSize.value; // Set brush size based on the brush size input
+
+                context.lineJoin = 'round';
+                context.lineCap = 'round';
+          
+            const touch = e.touches[0];
+            const currentX = touch.clientX - canvas.offsetLeft;
+            const currentY = touch.clientY - canvas.offsetTop;
+
+            context.beginPath();
+            context.moveTo(lastX, lastY);
+            context.lineTo(currentX, currentY);
+            context.stroke();
+
+            [lastX, lastY] = [currentX, currentY];
+        }
+
+        function handleTouchEnd() {
+            isDrawing = false;
+        }
+
+        // Add event listeners for mouse events
+        canvas.addEventListener('mousedown', handleMouseDown);
+        canvas.addEventListener('mousemove', handleMouseMove);
+        canvas.addEventListener('mouseup', handleMouseUp);
+        canvas.addEventListener('mouseout', handleMouseUp);
+
+        // Add event listeners for touch events
+        canvas.addEventListener('touchstart', handleTouchStart);
+        canvas.addEventListener('touchmove', handleTouchMove);
+        canvas.addEventListener('touchend', handleTouchEnd);
+        canvas.addEventListener('touchcancel', handleTouchEnd);
+    </script>
+</body>
+</html>

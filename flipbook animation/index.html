@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flipbook Animation</title>
+    <style>
+        /* CSS code for flipbook animation */
+        .flipbook-container {
+            perspective: 1000px;
+            width: 300px;
+            height: 200px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .flipbook {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateY(-20deg);
+        }
+
+        .page {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transform-origin: right center;
+            animation: flip-animation 8s infinite;
+        }
+
+        .page .content {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transform: rotateY(180deg);
+        }
+
+        .page:nth-child(even) {
+            transform: rotateY(-180deg);
+        }
+
+        @keyframes flip-animation {
+            0%, 45% {
+                transform: rotateY(0deg);
+            }
+            55%, 100% {
+                transform: rotateY(-180deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flipbook-container">
+        <div class="flipbook">
+            <div class="page">
+                <div class="content">
+                    <img src="./assets/image/new-cat-1.jpg" alt="Image 1">
+                </div>
+            </div>
+            <div class="page">
+                <div class="content">
+                    <img src="./assets/image/new-cat-2.jpg" alt="Image 2">
+                </div>
+            </div>
+            <div class="page">
+                <div class="content">
+                    <img src="./assets/image/new-cat-3.jpg" alt="Image 3">
+                </div>
+            </div>
+            <div class="page">
+                <div class="content">
+                    <img src="./assets/image/new-cat-4.jpg" alt="Image 4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code for flipbook animation
+        const flipbook = document.querySelector('.flipbook');
+        const pages = flipbook.getElementsByClassName('page');
+        let currentIndex = 0;
+
+        setInterval(flipPages, 8000); // Adjust the interval as desired
+
+        function flipPages() {
+            const currentPage = pages[currentIndex];
+            const nextPage = pages[(currentIndex + 1) % pages.length];
+
+            currentPage.style.animation = 'none';
+            nextPage.style.animation = 'flip-animation 8s infinite';
+
+            setTimeout(() => {
+                currentPage.style.animation = 'flip-animation 8s infinite';
+            }, 100); // Delay the animation of the current page to create a smooth transition
+
+            currentIndex = (currentIndex + 1) % pages.length;
+        }
+    </script>
+</body>
+</html>
+ 
