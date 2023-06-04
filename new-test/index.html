@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rectangle Drawing App</title>
+    <style>
+   html, body {
+            margin: 0;
+        }
+
+        #canvas {
+            border: 1px solid #000;
+        }
+
+        .rectangle {
+            position: absolute;
+          
+        }
+
+        .remove-button {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #f00;
+            color: #fff;
+            font-size: 12px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+
+        #editor {
+            width: 100%;
+            height: 300px;
+        }
+
+        #preview {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <input type="color" id="colorPicker">
+    <button id="convertBtn">Run</button>
+    <pre id="codeContainer"></pre>
+    <textarea id="editor" onchange="previewCode('')"></textarea>
+    <div id="preview"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

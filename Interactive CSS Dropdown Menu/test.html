@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Drawing App</title>
+    <style>
+        #canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <button id="convertBtn">Convert to HTML/CSS/JS</button>
+    <pre id="codeContainer"></pre>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const convertBtn = document.getElementById('convertBtn');
+        const codeContainer = document.getElementById('codeContainer');
+
+        let shapes = [];
+
+        // Function to draw shapes
+        function drawShapes() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            shapes.forEach((shape) => {
+                context.beginPath();
+                if (shape.type === 'rectangle') {
+                    context.rect(shape.x, shape.y, shape.width, shape.height);
+                } else if (shape.type === 'circle') {
+                    context.arc(shape.x, shape.y, shape.radius, 0, 2 * Math.PI);
+                }
+                context.fillStyle = shape.color;
+                context.fill();
+                context.closePath();
+            });
+        }
+
+        // Event listener for mouse click
+        canvas.addEventListener('click', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            const shape = {
+                type: 'circle', // Change to 'rectangle' for rectangles
+                x,
+                y,
+                radius: 50, // Change to desired values for rectangles
+                width: 100,
+                height: 50,
+                color: 'blue' // Change to desired color
+            };
+            shapes.push(shape);
+            drawShapes();
+        });
+
+        // Event listener for convert button click
+        convertBtn.addEventListener('click', () => {
+            const htmlCode = generateHTML();
+            const cssCode = generateCSS();
+            const jsCode = generateJS();
+            const code = `<html><head> <style> ${cssCode} </style></head><body>${htmlCode}<script>${jsCode}</script>
+</body>
+
+</html>`;
+codeContainer.textContent = code;
+});
+
+// Function to generate HTML code
+function generateHTML() {
+let html = '';
+shapes.forEach((shape) => {
+if (shape.type === 'rectangle') {
+html += `<div
+    style="position: absolute; left: ${shape.x}px; top: ${shape.y}px; width: ${shape.width}px; height: ${shape.height}px; background-color: ${shape.color};">
+</div>`;
+} else if (shape.type === 'circle') {
+html += `<div
+    style="position: absolute; left: ${shape.x - shape.radius}px; top: ${shape.y - shape.radius}px; width: ${shape.radius * 2}px; height: ${shape.radius * 2}px; border-radius: 50%; background-color: ${shape.color};">
+</div>`;
+}
+});
+return html;
+}
+
+// Function to generate CSS code
+function generateCSS() {
+let css = '';
+shapes.forEach((shape, index) => {
+if (shape.type === 'rectangle') {
+css += `.shape-${index} { position: absolute; left: ${shape.x}px; top: ${shape.y}px; width: ${shape.width}px; height:
+${shape.height}px; background-color: ${shape.color}; }\n`;
+} else if (shape.type === 'circle') {
+css += `.shape-${index} { position: absolute; left: ${shape.x - shape.radius}px; top: ${shape.y - shape.radius}px;
+width: ${shape.radius * 2}px; height: ${shape.radius * 2}px; border-radius: 50%; background-color: ${shape.color}; }\n`;
+}
+});
+return css;
+}
+
+// Function to generate JavaScript code
+function generateJS() {
+let js = '';
+shapes.forEach((shape, index) => {
+if (shape.type === 'rectangle') {
+js += `var shape${index} = document.querySelector('.shape-${index}');\n`;
+} else if (shape.type === 'circle') {
+js += `var shape${index} = document.querySelector('.shape-${index}');\n`;
+}
+});
+return js;
+}
+</script>
+</body>
+
+</html>
